@@ -89,17 +89,23 @@ def getPrincipleComponentsSP(n, data, dataIndex):
     # Draw the graph
     ax.set_xlabel('Principal Component 1', fontsize = 15)
     ax.set_ylabel('Principal Component 2', fontsize = 15)
+    trailName = str(sample)
     sample = str(sample) + ": " + str(round((p.explained_variance_ratio_[0] + p.explained_variance_ratio_[1])*100,2)) +"%"
     ax.set_title(sample, fontsize = 20)
     ax.legend(targets)
     ax.grid()
     
+    saveLocation = 'FiguresPCA'
+    if not os.path.exists(saveLocation):
+        os.makedirs(saveLocation)
+    plt.savefig(os.path.join(saveLocation, trailName + " PCA" + ".png"))
+    
 data = read_data()
 getPrincipleComponentsSP(2, data, 0)
 
 # If you want all the graphs loaded, please uncomment the code below
-#for i in range(len(data)):
-#    getPrincipleComponentsSP(2, data, i)
+# for i in range(len(data)):
+#     getPrincipleComponentsSP(2, data, i)
 
 
 
