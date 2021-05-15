@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd 
 import glob
 
+allTimestamps = []
 
 directory = os.path.join(os.path.join(os.path.join(os.path.join(os.getcwd(), '**'), '**'), '**'), '**')
 dataSetList = []
@@ -31,6 +32,7 @@ for dir in glob.glob(directory):
 
         df = pd.read_csv(os.path.join(dir, "PS.CSV"), skiprows=1)
         x = np.transpose(df.iloc[:,2:14][start:end + 1].to_numpy())
+        allTimestamps.append(np.transpose(df.iloc[:,0:1][start:end + 1].to_numpy()))
         # print(x.shape)
         data.append(x)
         # print(data)
@@ -48,3 +50,6 @@ for e in dataSetList:
     print(e[3].shape)
     print("\n\n\n")
     break
+
+def get_timestamps(dataIndex):
+    return allTimestamps[dataIndex]
